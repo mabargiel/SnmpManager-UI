@@ -1,0 +1,23 @@
+.agent-list {
+    width: 20%;
+    min-width: 250px;
+    border-right: 1px solid rgba(0,0,0,.1);
+    height: 100vh;
+    -webkit-box-shadow: 2px 0 5px -2px #888;
+    box-shadow: 2px 0 5px -2px #888;
+}
+
+.agent-list-header {
+    font-weight: 500;
+    color: rgba(0,0,0,.85);
+    height: 7%;
+    text-align: center;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    margin-top: 10px;
+}
+
+ul.no-bullet {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+}

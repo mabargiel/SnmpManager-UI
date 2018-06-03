@@ -1,0 +1,14 @@
+.flexDisplay {
+  display: flex;
+}
+
+.navbar-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space;
+  align-items: center;
+}
+
+.navbar-horizontal > li{
+  padding-left: 10px;
+}

@@ -1,0 +1,10 @@
+li {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.li-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
