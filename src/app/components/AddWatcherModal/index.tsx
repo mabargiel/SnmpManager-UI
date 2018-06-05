@@ -3,10 +3,12 @@ import * as Modal from 'react-modal';
 import * as bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
 import * as styles from './style.css';
 import * as classNames from "classnames";
+import { AgentModel } from "app/models";
 
 export namespace AddWatcherModal {
     export interface Props {
         isOpen: boolean;
+        agents: AgentModel[];
         onSubmit: (event: any, form: State) => void;
     }
 
@@ -61,15 +63,10 @@ export class AddWatcherModal extends React.Component<AddWatcherModal.Props, AddW
                     this.onModalClosed();
                 }}>
                 <div className={bootstrap.formGroup}>
-                    <label htmlFor="ipAddressInput">IP Address</label>
-                    <input
-                    type="text"
-                    className={bootstrap.formControl}
-                    id="ipAddressInput"
-                    placeholder="IP Address"
-                    value={this.state.ipAddress}
-                    onChange={this.onIpAddressChange}
-                    />
+                    <label htmlFor="selectAgent">Agent</label>
+                    <select className={bootstrap.formControl} id="selectAgent">
+                        {this.props.agents.map(agent => (<option key={agent.ipAddress}>{agent.ipAddress}</option>))}
+                    </select>
                 </div>
                 <div className={bootstrap.formGroup}>
                     <label htmlFor="mibInput">MIB</label>
