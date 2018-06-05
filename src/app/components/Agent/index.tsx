@@ -12,7 +12,7 @@ export namespace Agent {
 export default class Agent extends React.Component<Agent.Props> {
     render() {
         return (
-            <li><img className={styles.liIcon} src={displayIcon} /> {this.props.ipAddress} <span>v{this.props.supportedVersion}</span></li>
+            <li><img className={styles.liIcon} src={displayIcon} /> {this.props.ipAddress} <span>{this.props.supportedVersion}</span></li>
         )
     }
 }

@@ -5,12 +5,34 @@ import * as classNames from "classnames";
 import { Link, Switch, Route } from 'react-router-dom'
 import WatchersView from "app/containers/WatchersView";
 import * as styles from './style.css';
+import { RootState } from "app/reducers";
+import { connect } from "react-redux";
+import { AgentActions } from 'app/actions/agents';
+import { Dispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { omit } from "app/utils";
 
-const agents = () => {
-  return [{ipAddress: '192.168.1.103', supportedVersion: '3'}, {ipAddress: '192.168.1.116', supportedVersion: '3'}, {ipAddress: '192.168.1.117', supportedVersion: '3'}];
+export namespace App {
+  export interface Props {
+    agentListState: RootState.AgentListState;
+    actions: AgentActions;
+  }
 }
 
-export class App extends React.Component {
+@connect(
+  (state: RootState): Pick<App.Props, 'agentListState'> => {
+    return { agentListState: state.agentList };
+  },
+  (dispatch: Dispatch): Pick<App.Props, 'actions'> => ({
+    actions: bindActionCreators(omit(AgentActions, 'Type'), dispatch)
+  })
+)
+export class App extends React.Component<App.Props> {
+
+  componentDidMount() {
+    this.props.actions.fetchAgents();
+  }
+
   render() {
     return (
       <div>
@@ -26,7 +48,7 @@ export class App extends React.Component {
             </ul>
         </nav>
         <div className={styles.flexDisplay}>
-          <AgentList agents={agents()}/>
+          <AgentList agents={this.props.agentListState.agents}/>
           <Switch>
               <Route path="/watchers" component={WatchersView}/>
           </Switch>

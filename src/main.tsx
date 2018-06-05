@@ -5,16 +5,19 @@ import { ConnectedRouter } from 'react-router-redux';
 import { createBrowserHistory } from 'history';
 import { configureStore } from 'app/store';
 import { App } from './app';
+import { signalRRegisterCommands } from 'app/middleware/signalR';
 
 // prepare store
 const history = createBrowserHistory();
 const store = configureStore(history);
 
-ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
-  </Provider>,
-  document.getElementById('root')
+signalRRegisterCommands(store, () =>
+  ReactDOM.render(
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
+    </Provider>,
+    document.getElementById('root')
+  )
 );
