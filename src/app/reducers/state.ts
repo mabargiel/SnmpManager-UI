@@ -1,15 +1,23 @@
+import { WatcherModel } from './../models/WatcherModel';
 import { AgentModel } from './../models/AgentModel';
 import { RouterState } from 'react-router-redux';
 
 export interface RootState {
   router: RouterState;
-  agentList: RootState.AgentListState; 
+  agentList: RootState.AgentsState; 
+  watcherList: RootState.WatchersState;
 }
 
 export namespace RootState {
-  export type AgentListState = {
+  export type AgentsState = {
     agents: AgentModel[],
-    loading: boolean,
+    fetching: boolean,
+    error: string | null
+  };
+  
+  export type WatchersState = {
+    watchers: WatcherModel[],
+    fetching: boolean,
     error: string | null
   }
 }

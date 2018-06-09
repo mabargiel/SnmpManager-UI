@@ -14,7 +14,7 @@ import { omit } from "app/utils";
 
 export namespace App {
   export interface Props {
-    agentListState: RootState.AgentListState;
+    agentListState: RootState.AgentsState;
     actions: AgentActions;
   }
 }

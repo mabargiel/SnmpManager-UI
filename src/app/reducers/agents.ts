@@ -4,17 +4,17 @@ import { RootState } from "app/reducers";
 import { handleActions } from "redux-actions";
 import * as _ from 'lodash';
 
-const initialState: RootState.AgentListState = {
+const initialState: RootState.AgentsState = {
     agents: [],
-    loading: true,
+    fetching: true,
     error: null
 }
 
-export const agentListReducer = handleActions<RootState.AgentListState, AgentModel | AgentModel[]>(
+export const agentsReducer = handleActions<RootState.AgentsState, AgentModel | AgentModel[]>(
     {
         [AgentActions.Type.FETCH_AGENTS]: (state, action) => {
             return {
-                ...state, loading: true
+                ...state, fetching: true
             };
         },
 
@@ -23,7 +23,7 @@ export const agentListReducer = handleActions<RootState.AgentListState, AgentMod
             if(action.payload) {
                 return {
                     ...state, 
-                    loading: false, 
+                    fetching: false, 
                     agents: action.payload as AgentModel[]
                 };
             }
@@ -34,7 +34,7 @@ export const agentListReducer = handleActions<RootState.AgentListState, AgentMod
             if(action.payload) {
                 return {
                     agents: [], 
-                    loading: false, 
+                    fetching: false, 
                     error: 'Could not load agent list. Try again later'
                 };
             }

@@ -15,8 +15,14 @@ export namespace AddWatcherModal {
     export interface State {
         ipAddress: string,
         mib: string,
-        updatesEvery: number | null
+        updatesEvery: number
     }
+}
+
+const initialState: AddWatcherModal.State = {
+    ipAddress: '', 
+    mib: '', 
+    updatesEvery: 1000
 }
 
 Modal.setAppElement('#root');
@@ -31,14 +37,11 @@ export class AddWatcherModal extends React.Component<AddWatcherModal.Props, AddW
         this.onUpdatesEveryChange = this.onUpdatesEveryChange.bind(this);
         this.onModalClosed = this.onModalClosed.bind(this);
 
-        this.state = {
-            ipAddress: '', 
-            mib: '', 
-            updatesEvery: null
-        };
+        this.state = initialState;
     }
 
     onIpAddressChange(event: any) {
+        console.log(event.target.value);
         this.setState({...this.state, ipAddress: event.target.value});
     }
     
@@ -47,50 +50,56 @@ export class AddWatcherModal extends React.Component<AddWatcherModal.Props, AddW
     }
 
     onUpdatesEveryChange(event: any) {
-        this.setState({...this.state, updatesEvery: event.target.updatesEvery});
+        this.setState({...this.state, updatesEvery: event.target.value});
     }
     
     onModalClosed() {
-        this.setState({});
+        this.setState({
+            ipAddress: '',
+            mib: '',
+            updatesEvery: 1000
+        });
     }
 
     render() {
         return (
             <Modal isOpen={this.props.isOpen} contentLabel="Modal" className={styles.modal}>
                 <h2>Create New Sonar</h2>
-                <form onSubmit={e => {
-                    this.props.onSubmit(e, this.state);
-                    this.onModalClosed();
-                }}>
-                <div className={bootstrap.formGroup}>
-                    <label htmlFor="selectAgent">Agent</label>
-                    <select className={bootstrap.formControl} id="selectAgent">
-                        {this.props.agents.map(agent => (<option key={agent.ipAddress}>{agent.ipAddress}</option>))}
-                    </select>
-                </div>
-                <div className={bootstrap.formGroup}>
-                    <label htmlFor="mibInput">MIB</label>
-                    <input 
-                        type="text" 
-                        className={bootstrap.formControl} 
-                        id="mibInput" 
-                        placeholder="MIB"
-                        value={this.state.mib}
-                        onChange={this.onMibChange} />
-                </div>
-                <div className={bootstrap.formGroup}>
-                    <label htmlFor="mibInput">Updates every</label>
-                    <input 
-                        type="text" 
-                        className={bootstrap.formControl} 
-                        id="updatesEveryInput" 
-                        placeholder="Updates Every"
-                        value={this.state.updatesEvery || ''}
-                        onChange={this.onUpdatesEveryChange} />
-                </div>
-                <button type="submit" className={classNames(bootstrap.btn, bootstrap.btnPrimary)}>
-                    Create
-                </button>
+                <form>
+                    <div className={bootstrap.formGroup}>
+                        <label htmlFor="selectAgent">Agent</label>
+                        <select 
+                            className={bootstrap.formControl} 
+                            id="selectAgent" 
+                            onChange={this.onIpAddressChange} 
+                            value={this.state.ipAddress}>
+                                <option key="default">Select agent...</option>
+                                {this.props.agents.map(agent => (<option key={agent.ipAddress}>{agent.ipAddress}</option>))}
+                        </select>
+                    </div>
+                    <div className={bootstrap.formGroup}>
+                        <label htmlFor="mibInput">MIB</label>
+                        <input 
+                            type="text" 
+                            className={bootstrap.formControl} 
+                            id="mibInput" 
+                            placeholder="MIB"
+                            value={this.state.mib}
+                            onChange={this.onMibChange} />
+                    </div>
+                    <div className={bootstrap.formGroup}>
+                        <label htmlFor="mibInput">Updates every</label>
+                        <input 
+                            type="text" 
+                            className={bootstrap.formControl} 
+                            id="updatesEveryInput" 
+                            placeholder="Updates Every"
+                            onChange={this.onUpdatesEveryChange} />
+                    </div>
+                    <button type="submit" className={classNames(bootstrap.btn, bootstrap.btnPrimary)} onClick={e => {
+                        this.props.onSubmit(e, this.state);
+                        this.onModalClosed();
+                    }}>Create</button>
                 </form>
             </Modal>
         )

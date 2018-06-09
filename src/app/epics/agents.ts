@@ -1,7 +1,6 @@
 import { AgentModel } from './../models/AgentModel';
 import { AgentActions } from "app/actions/agents";
-import { mergeMap, catchError } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
+import { mergeMap, map, catchError } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
 import { ofType } from 'redux-observable';
 import { of } from 'rxjs/internal/observable/of';
