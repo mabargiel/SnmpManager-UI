@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "react-sparklines": "registry:npm/react-sparklines#1.4.1+20160127183143"
+  }
+}

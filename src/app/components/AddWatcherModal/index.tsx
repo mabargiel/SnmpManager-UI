@@ -4,6 +4,7 @@ import * as bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
 import * as styles from './style.css';
 import * as classNames from "classnames";
 import { AgentModel } from "app/models";
+import { SnmpMethod } from "app/models/SnmpMethod";
 
 export namespace AddWatcherModal {
     export interface Props {
@@ -15,6 +16,7 @@ export namespace AddWatcherModal {
     export interface State {
         ipAddress: string,
         mib: string,
+        method: SnmpMethod,
         updatesEvery: number
     }
 }
@@ -22,6 +24,7 @@ export namespace AddWatcherModal {
 const initialState: AddWatcherModal.State = {
     ipAddress: '', 
     mib: '', 
+    method: SnmpMethod.Get,
     updatesEvery: 1000
 }
 

@@ -1,0 +1,13 @@
+.align-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.align-items > * {
+    display: block;
+    margin: 5px 0;
+}
+
+.align-items > *:first-child {
+    margin-top: 0px;
+}

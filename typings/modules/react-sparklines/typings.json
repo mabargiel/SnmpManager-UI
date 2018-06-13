@@ -1,0 +1,9 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/andrew-w-ross/typings-react-sparklines/a45359c3d5c043414840533761b7f8a85130641c/typings.json",
+    "raw": "registry:npm/react-sparklines#1.4.1+20160127183143",
+    "main": "react-sparklines.d.ts",
+    "name": "react-sparklines"
+  }
+}

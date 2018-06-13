@@ -10,8 +10,7 @@ import { RootState } from "app/reducers";
 import { Dispatch, bindActionCreators } from "redux";
 import { WatcherActions } from "app/actions";
 import { omit } from "app/utils";
-import { WatcherTable } from "app/components/WatcherTable";
-import { WatcherDetails } from "app/components/WatcherDetails";
+import WatcherList from "app/components/WatcherList";
 
 export namespace WatchersView {
     export interface Props {
@@ -76,13 +75,7 @@ export default class WatchersView extends React.Component<WatchersView.Props & R
                     isOpen={this.state.modalIsOpen} agents={this.props.agents} 
                     onSubmit={this.handleSubmitWatcher}/>
                 <div className={styles.container}>
-                    <WatcherTable 
-                        className={styles.containerItemAlign}
-                        items={this.props.watchers} 
-                        onItemSelected={this.handleWatcherSelect}/>
-                    <WatcherDetails 
-                        className={styles.containerItemAlign} 
-                        selectedWatcher={this.state.selectedWatcher} />
+                    <WatcherList watchers={this.props.watchers} />
                 </div>
             </div>
         )
