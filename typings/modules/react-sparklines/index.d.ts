@@ -2,8 +2,9 @@
 // Source: https://raw.githubusercontent.com/andrew-w-ross/typings-react-sparklines/a45359c3d5c043414840533761b7f8a85130641c/react-sparklines.d.ts
 declare module 'react-sparklines' {
 
+import * as React  from 'react';
+
 module sparkline {
-	import * as React from 'react';
 
 	export interface ISparklinesProps {
 		data: number[];

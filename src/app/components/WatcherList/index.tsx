@@ -1,6 +1,6 @@
 import * as React from "react";
 import { WatcherModel } from "app/models/WatcherModel";
-import { Watcher } from "app/components/Watcher";
+import Watcher from "app/components/Watcher";
 
 export namespace WatcherList {
     export interface Props {
@@ -20,7 +20,7 @@ export default class WatcherList extends React.Component<WatcherList.Props> {
         if(!this.props.watchers)
             return <div></div>;
 
-        return this.props.watchers.map(watcher => <Watcher params={watcher}/>);
+        return this.props.watchers.map(watcher => <Watcher key={watcher.id} params={watcher}/>);
     }
 
     render() {

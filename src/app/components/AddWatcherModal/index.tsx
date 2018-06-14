@@ -119,8 +119,8 @@ export class AddWatcherModal extends React.Component<AddWatcherModal.Props, AddW
                             onChange={this.onUpdatesEveryChanged} />
                     </div>
                     <div className={bootstrap.modalFooter}>
-                        <button className={classNames(bootstrap.btn, bootstrap.btnSecondary)} onClick={() => {
-                            this.props.onCancel;
+                        <button className={classNames(bootstrap.btn, bootstrap.btnSecondary)} onClick={e => {
+                            this.props.onCancel(e);
                             this.onModalClosed();
                         }}>Close</button>
                         <button type="submit" className={classNames(bootstrap.btn, bootstrap.btnPrimary)} onClick={e => {

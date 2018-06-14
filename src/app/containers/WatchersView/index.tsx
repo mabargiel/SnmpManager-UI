@@ -40,6 +40,7 @@ export default class WatchersView extends React.Component<WatchersView.Props & R
         
         this.openModal = this.openModal.bind(this);
         this.handleSubmitWatcher = this.handleSubmitWatcher.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handleWatcherSelect = this.handleWatcherSelect.bind(this);
 
         this.state = {modalIsOpen: false, selectedWatcher: null};
