@@ -11,6 +11,7 @@ export namespace AddWatcherModal {
         isOpen: boolean;
         agents: AgentModel[];
         onSubmit: (event: any, form: State) => void;
+        onCancel: (event: any) => void;
     }
 
     export interface State {
@@ -35,31 +36,37 @@ export class AddWatcherModal extends React.Component<AddWatcherModal.Props, AddW
     constructor(props: AddWatcherModal.Props) {
         super(props);
         
-        this.onIpAddressChange = this.onIpAddressChange.bind(this);
-        this.onMibChange = this.onMibChange.bind(this);
-        this.onUpdatesEveryChange = this.onUpdatesEveryChange.bind(this);
+        this.onIpAddressChanged = this.onIpAddressChanged.bind(this);
+        this.onMethodChanged = this.onMethodChanged.bind(this);
+        this.onMibChanged = this.onMibChanged.bind(this);
+        this.onUpdatesEveryChanged = this.onUpdatesEveryChanged.bind(this);
         this.onModalClosed = this.onModalClosed.bind(this);
 
         this.state = initialState;
     }
 
-    onIpAddressChange(event: any) {
-        console.log(event.target.value);
+    onIpAddressChanged(event: any) {
         this.setState({...this.state, ipAddress: event.target.value});
     }
+
+    onMethodChanged(event: any) {
+        this.setState({...this.state, method: event.target.value});
+    }
     
-    onMibChange(event: any) {
+    onMibChanged(event: any) {
         this.setState({...this.state, mib: event.target.value});
     }
 
-    onUpdatesEveryChange(event: any) {
+    onUpdatesEveryChanged(event: any) {
         this.setState({...this.state, updatesEvery: event.target.value});
     }
     
     onModalClosed() {
+        
         this.setState({
             ipAddress: '',
             mib: '',
+            method: SnmpMethod.Get,
             updatesEvery: 1000
         });
     }
@@ -74,10 +81,22 @@ export class AddWatcherModal extends React.Component<AddWatcherModal.Props, AddW
                         <select 
                             className={bootstrap.formControl} 
                             id="selectAgent" 
-                            onChange={this.onIpAddressChange} 
+                            onChange={this.onIpAddressChanged} 
                             value={this.state.ipAddress}>
                                 <option key="default">Select agent...</option>
                                 {this.props.agents.map(agent => (<option key={agent.ipAddress}>{agent.ipAddress}</option>))}
+                        </select>
+                    </div>
+                    <div className={bootstrap.formGroup}>
+                        <label htmlFor="selectMethod">Method</label>
+                        <select 
+                            className={bootstrap.formControl} 
+                            id="selectMethod" 
+                            onChange={this.onMethodChanged} 
+                            value={this.state.method}>
+                                <option key="default">Select method...</option>
+                                <option key={SnmpMethod.Get}>GET</option>
+                                <option key={SnmpMethod.Walk}>WALK</option>
                         </select>
                     </div>
                     <div className={bootstrap.formGroup}>
@@ -88,7 +107,7 @@ export class AddWatcherModal extends React.Component<AddWatcherModal.Props, AddW
                             id="mibInput" 
                             placeholder="MIB"
                             value={this.state.mib}
-                            onChange={this.onMibChange} />
+                            onChange={this.onMibChanged} />
                     </div>
                     <div className={bootstrap.formGroup}>
                         <label htmlFor="mibInput">Updates every</label>
@@ -97,12 +116,19 @@ export class AddWatcherModal extends React.Component<AddWatcherModal.Props, AddW
                             className={bootstrap.formControl} 
                             id="updatesEveryInput" 
                             placeholder="Updates Every"
-                            onChange={this.onUpdatesEveryChange} />
+                            onChange={this.onUpdatesEveryChanged} />
                     </div>
-                    <button type="submit" className={classNames(bootstrap.btn, bootstrap.btnPrimary)} onClick={e => {
-                        this.props.onSubmit(e, this.state);
-                        this.onModalClosed();
-                    }}>Create</button>
+                    <div className={bootstrap.modalFooter}>
+                        <button className={classNames(bootstrap.btn, bootstrap.btnSecondary)} onClick={() => {
+                            this.props.onCancel;
+                            this.onModalClosed();
+                        }}>Close</button>
+                        <button type="submit" className={classNames(bootstrap.btn, bootstrap.btnPrimary)} onClick={e => {
+                            this.props.onSubmit(e, this.state);
+                            this.onModalClosed();
+                        }}>Create</button>
+                    </div>
+                    
                 </form>
             </Modal>
         )

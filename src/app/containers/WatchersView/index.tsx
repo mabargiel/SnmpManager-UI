@@ -60,6 +60,11 @@ export default class WatchersView extends React.Component<WatchersView.Props & R
           this.setState({ modalIsOpen: false });
         }
     }
+
+    handleCloseModal(event: any) {
+        event.preventDefault();
+        this.setState({...this.state, modalIsOpen: false});
+    }
     
     handleWatcherSelect(event: any, item: WatcherModel) {
         this.setState({...this.state, selectedWatcher: item});
@@ -73,7 +78,8 @@ export default class WatchersView extends React.Component<WatchersView.Props & R
                 </div>
                 <AddWatcherModal 
                     isOpen={this.state.modalIsOpen} agents={this.props.agents} 
-                    onSubmit={this.handleSubmitWatcher}/>
+                    onSubmit={this.handleSubmitWatcher}
+                    onCancel={this.handleCloseModal} />
                 <div className={styles.container}>
                     <WatcherList watchers={this.props.watchers} />
                 </div>
