@@ -92,7 +92,7 @@ export default class Watcher extends React.Component<Watcher.Props, Watcher.Stat
                 case SnmpValueType.Integer32:
                 console.log(this.state.history[key])
                     jsx = (
-                        <div className={styles.variables}>
+                        <div>
                             <span>{this.state.data[key].type}</span>
                             <Sparklines data={this.state.history[key]} limit={20}>
                                 <SparklinesLine color="#1c8cdc" />
@@ -103,7 +103,7 @@ export default class Watcher extends React.Component<Watcher.Props, Watcher.Stat
                     break;
                 default:
                     jsx = (
-                        <div className={styles.variables}>
+                        <div>
                             <span>{this.state.data[key].type}</span>
                             <span>{this.state.data[key].value}</span>
                         </div>
@@ -111,7 +111,7 @@ export default class Watcher extends React.Component<Watcher.Props, Watcher.Stat
                     break;
             }
             
-            return React.cloneElement(jsx, {key: key});
+            return React.cloneElement(jsx, {key: key, className: styles.variable});
         });
     }
 
@@ -119,14 +119,14 @@ export default class Watcher extends React.Component<Watcher.Props, Watcher.Stat
         return (
             <div>
                 <div className={styles.description}>
-                    <span>Ip Address: {this.props.params.ipAddress}</span>
-                    <span>Method: {this.props.params.method}</span>
-                    <span>Mib: {this.props.params.mib}</span>
-                    <span>UpdatesEvery: {this.props.params.updatesEvery}</span>
+                    <span>{this.props.params.ipAddress}</span>
+                    <span>{this.props.params.method}</span>
+                    <span>{this.props.params.mib}</span>
+                    <span>{this.props.params.updatesEvery}</span>
                 </div>
-
-                {this.renderVariables()}
-                
+                <div className={styles.variableList}>
+                    {this.renderVariables()}
+                </div>
             </div>
         )
     }

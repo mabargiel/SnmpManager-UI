@@ -5,7 +5,12 @@
     margin-top: 10px;
 }
 
-.variables {
+.variable {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    margin: 1px 0;
+}
+
+.variableList {
+    margin: 5px 10px;
 }
