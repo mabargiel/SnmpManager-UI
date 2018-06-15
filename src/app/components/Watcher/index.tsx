@@ -45,8 +45,8 @@ export default class Watcher extends React.Component<Watcher.Props, Watcher.Stat
             if(data.id != this.props.params.id)
                 return;
 
-            let map = data.data.variables;
-            let keys = Object.keys(data.data.variables);
+            let map = data.data;
+            let keys = Object.keys(map.variables);
             let updatedHistory = {...this.state.history};
             
             keys.forEach(key => {
@@ -92,10 +92,13 @@ export default class Watcher extends React.Component<Watcher.Props, Watcher.Stat
                 case SnmpValueType.Integer32:
                 console.log(this.state.history[key])
                     jsx = (
-                        <Sparklines data={this.state.history[key]} limit={20}>
-                            <SparklinesLine color="#1c8cdc" />
-                            <SparklinesSpots />
-                        </Sparklines>
+                        <div className={styles.variables}>
+                            <span>{this.state.data[key].type}</span>
+                            <Sparklines data={this.state.history[key]} limit={20}>
+                                <SparklinesLine color="#1c8cdc" />
+                                <SparklinesSpots />
+                            </Sparklines>
+                        </div>
                     );
                     break;
                 default:
@@ -123,6 +126,7 @@ export default class Watcher extends React.Component<Watcher.Props, Watcher.Stat
                 </div>
 
                 {this.renderVariables()}
+                
             </div>
         )
     }
